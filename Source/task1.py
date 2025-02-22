@@ -45,9 +45,20 @@ def picewise_linear_transform(img, points):
     return lut[img]
 
 
+def hist_eq(img):
+    unique, counts = np.unique(img, return_counts=True)
+    lut = np.cumsum(counts) * (255 / (img.shape[0]*img.shape[1]))
+    # plt.plot(unique, lut)
+    # plt.show()
+    return lut[img]
+
+
 if __name__ == '__main__':
-    img = pic_to_array('./../Images/too_light.png')
-    # Image.fromarray(img).show()
+    img = pic_to_array('./../Images/dark.jpg')
+    Image.fromarray(img).show()
+
+    eq_img = hist_eq(img)
+    Image.fromarray(eq_img).show()
 
     # neg_img = negative_transform(img)
     # Image.fromarray(neg_img).show()
@@ -62,15 +73,15 @@ if __name__ == '__main__':
     # Image.fromarray(gamma_img).show()
 
 
-    p1 = (0, 20)
-    p2 = (50, 20)
-    p3 = (50, 120)
-    p4 = (100, 120)
-    p5 = (100, 20)
-    p6 = (255, 20)
-    points = [p1,p2,p3,p4,p5,p6]
-    x = [p[0] for p in points]
-    y = [p[1] for p in points]
-    xui = picewise_linear_transform(img, points)
-    Image.fromarray(xui).show()
+    # p1 = (0, 20)
+    # p2 = (50, 20)
+    # p3 = (50, 120)
+    # p4 = (100, 120)
+    # p5 = (100, 20)
+    # p6 = (255, 20)
+    # points = [p1,p2,p3,p4,p5,p6]
+    # x = [p[0] for p in points]
+    # y = [p[1] for p in points]
+    # xui = picewise_linear_transform(img, points)
+    # Image.fromarray(xui).show()
 
